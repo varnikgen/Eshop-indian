@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -22,7 +23,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text"><b>{{ product.price }}</b></p>
-                    <a href="#" class="btn btn-primary">Добавить в корзину</a>
+                    <a href="#" class="btn btn-light border btn-sm">Добавить в корзину</a>
                 </div>
             </div>
             {% endfor %}
