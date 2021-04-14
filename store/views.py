@@ -17,3 +17,7 @@ def index(request):
 
     data = {'categories': categories, 'products': products, }
     return render(request, 'index.html', data)
+
+
+def signup(request):
+    return render(request, 'signup.html')
