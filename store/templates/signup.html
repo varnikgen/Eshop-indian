@@ -2,6 +2,46 @@
 
 
 {% block content %}
-    <h1>Создать аккаунт</h1>
+<div class="container">
+    <div class="p-4 m-4">
+        <div class="col-lg-5 mx-auto border rounded pt-4">
+            <h3 class="alert alert-light border rounded">Создать аккаунт</h3>
+            <form action="#">
+                <!-- first_name -->
+                <div class="form-group">
+                    <label for="">Имя</label>
+                    <input type="text" name="firstname" id="" class="form-control form-control-sm" placeholder="Игорь"
+                        aria-describedby="helpId">
+                </div>
+                <!-- last_name -->
+                <div class="form-group">
+                    <label for="">Фамилия</label>
+                    <input type="text" name="lastname" id="" class="form-control form-control-sm" placeholder="Корнелюк"
+                        aria-describedby="helpId">
+                </div>
+                <!-- phone -->
+                <div class="form-group">
+                    <label for="">Телефон</label>
+                    <input type="text" name="lastname" id="" class="form-control form-control-sm" placeholder="+73222233223"
+                        aria-describedby="helpId">
+                </div>
+                <!-- email -->
+                <div class="form-group">
+                    <label for="">Электронная почта</label>
+                    <input type="email" name="email" id="" class="form-control form-control-sm" placeholder="example@email.ru"
+                        aria-describedby="helpId">
+                </div>
+                <!-- password -->
+                <div class="form-group">
+                    <label for="">Пароль для входа</label>
+                    <input type="password" name="password" id="" class="form-control form-control-sm" placeholder="*******"
+                        aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-sm btn-info" type="submit" value="Создать">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}
-    
