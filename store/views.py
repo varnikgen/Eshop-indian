@@ -20,4 +20,7 @@ def index(request):
 
 
 def signup(request):
-    return render(request, 'signup.html')
+    if request.method == 'GET':
+        return render(request, 'signup.html')
+    else:
+        return HttpResponse('Received Post Request')
