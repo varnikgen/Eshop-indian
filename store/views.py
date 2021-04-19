@@ -1,3 +1,4 @@
+from django.core.checks.messages import Error
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -30,9 +31,26 @@ def signup(request):
         phone = postData.get('phone')
         email = postData.get('email')
         password = postData.get('password')
-        print(first_name, last_name, phone, email, password)
-        customer = Customer(first_name=first_name, last_name=last_name,
-                            phone=phone, email=email, password=password)
-        customer.register()
+
+        # Проверка
+        error_message = None
         
-        return HttpResponse('Регистрация завершена')
+        if not first_name:
+            error_message = "Введите Имя!"
+
+        if not last_name:
+            error_message = "Введите фамилию!"
+
+        if len(phone) < 5:
+            error_message = "Номер не может быть меньше 6 символов!"
+        elif len(phone) > 12:
+            error_message = "Номер слишком длинный!"
+        
+        # Сохранение
+        if not error_message:
+            print(first_name, last_name, phone, email, password)
+            customer = Customer(first_name=first_name, last_name=last_name,
+                                phone=phone, email=email, password=password)
+            customer.register()
+        else:
+            return render(request, 'signup.html', {'error': error_message})

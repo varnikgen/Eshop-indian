@@ -8,6 +8,13 @@
             <h3 class="alert alert-light border rounded">Создать аккаунт</h3>
             <form action="/signup" method="POST">
                 {% csrf_token %}
+
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+
                 <!-- first_name -->
                 <div class="form-group">
                     <label for="">Имя</label>
@@ -23,20 +30,20 @@
                 <!-- phone -->
                 <div class="form-group">
                     <label for="">Телефон</label>
-                    <input type="text" name="phone" id="" class="form-control form-control-sm" placeholder="+73222233223"
-                        aria-describedby="helpId">
+                    <input type="text" name="phone" id="" class="form-control form-control-sm"
+                        placeholder="+73222233223" aria-describedby="helpId">
                 </div>
                 <!-- email -->
                 <div class="form-group">
                     <label for="">Электронная почта</label>
-                    <input type="email" name="email" id="" class="form-control form-control-sm" placeholder="example@email.ru"
-                        aria-describedby="helpId">
+                    <input required type="email" name="email" id="" class="form-control form-control-sm"
+                        placeholder="example@email.ru" aria-describedby="helpId">
                 </div>
                 <!-- password -->
                 <div class="form-group">
                     <label for="">Пароль для входа</label>
-                    <input type="password" name="password" id="" class="form-control form-control-sm" placeholder="*******"
-                        aria-describedby="helpId">
+                    <input type="password" name="password" id="" class="form-control form-control-sm"
+                        placeholder="*******" aria-describedby="helpId">
                 </div>
                 <div class="form-group">
                     <input class="btn btn-sm btn-info" type="submit" value="Создать">
