@@ -33,6 +33,12 @@ def signup(request):
         password = postData.get('password')
 
         # Проверка
+        value = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'phone': phone,
+            'email': email,
+        }
         error_message = None
         
         if not first_name:
@@ -41,6 +47,8 @@ def signup(request):
         if not last_name:
             error_message = "Введите фамилию!"
 
+        if not phone:
+            error_message = 'Заполните поле с номером телефона!'
         if len(phone) < 5:
             error_message = "Номер не может быть меньше 6 символов!"
         elif len(phone) > 12:
@@ -52,5 +60,10 @@ def signup(request):
             customer = Customer(first_name=first_name, last_name=last_name,
                                 phone=phone, email=email, password=password)
             customer.register()
+            return render(request, 'index.html')
         else:
-            return render(request, 'signup.html', {'error': error_message})
+            data = {
+                'error': error_message,
+                'values': value
+            }
+            return render(request, 'signup.html', data)
