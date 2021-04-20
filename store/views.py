@@ -1,6 +1,6 @@
 from django.core.checks.messages import Error
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .models.category import Category
 from .models.customer import Customer
@@ -60,7 +60,7 @@ def signup(request):
             customer = Customer(first_name=first_name, last_name=last_name,
                                 phone=phone, email=email, password=password)
             customer.register()
-            return render(request, 'index.html')
+            return redirect('/')
         else:
             data = {
                 'error': error_message,
