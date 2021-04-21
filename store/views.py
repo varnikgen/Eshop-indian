@@ -40,7 +40,10 @@ def signup(request):
             'email': email,
         }
         error_message = None
-        
+
+        customer = Customer(first_name=first_name, last_name=last_name,
+                            phone=phone, email=email, password=password)
+
         if not first_name:
             error_message = "Введите Имя!"
 
@@ -54,13 +57,15 @@ def signup(request):
         elif len(phone) > 12:
             error_message = "Номер слишком длинный!"
         
+        if customer.isExists():
+            error_message = "Данный email-адрес уже используется!"
+
         # Сохранение
         if not error_message:
             print(first_name, last_name, phone, email, password)
-            customer = Customer(first_name=first_name, last_name=last_name,
-                                phone=phone, email=email, password=password)
+
             customer.register()
-            return redirect('/')
+            return redirect('homepage')
         else:
             data = {
                 'error': error_message,
