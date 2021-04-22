@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password, check_password
 from django.core.checks.messages import Error
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -6,6 +7,8 @@ from .models.category import Category
 from .models.customer import Customer
 from .models.product import Product
 
+
+print(make_password('123'))
 
 def index(request):
     products = None
@@ -56,14 +59,14 @@ def signup(request):
             error_message = "Номер не может быть меньше 6 символов!"
         elif len(phone) > 12:
             error_message = "Номер слишком длинный!"
-        
+
         if customer.isExists():
             error_message = "Данный email-адрес уже используется!"
 
         # Сохранение
         if not error_message:
             print(first_name, last_name, phone, email, password)
-
+            customer.password = make_password(customer.password)
             customer.register()
             return redirect('homepage')
         else:
