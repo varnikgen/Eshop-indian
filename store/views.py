@@ -10,6 +10,7 @@ from .models.product import Product
 
 print(make_password('123'))
 
+
 def index(request):
     products = None
     categories = Category.get_all_categories()
@@ -23,6 +24,26 @@ def index(request):
     data = {'categories': categories, 'products': products, }
     return render(request, 'index.html', data)
 
+
+def validateCustomer(customer):
+    error_message = None
+    if not customer.first_name:
+        error_message = "Введите Имя!"
+
+    if not customer.last_name:
+        error_message = "Введите фамилию!"
+
+    if not customer.phone:
+        error_message = 'Заполните поле с номером телефона!'
+    if len(customer.phone) < 5:
+        error_message = "Номер не может быть меньше 6 символов!"
+    elif len(customer.phone) > 12:
+        error_message = "Номер слишком длинный!"
+
+    if customer.isExists():
+        error_message = "Данный email-адрес уже используется!"
+    
+    return error_message
 
 def signup(request):
     if request.method == 'GET':
@@ -47,21 +68,7 @@ def signup(request):
         customer = Customer(first_name=first_name, last_name=last_name,
                             phone=phone, email=email, password=password)
 
-        if not first_name:
-            error_message = "Введите Имя!"
-
-        if not last_name:
-            error_message = "Введите фамилию!"
-
-        if not phone:
-            error_message = 'Заполните поле с номером телефона!'
-        if len(phone) < 5:
-            error_message = "Номер не может быть меньше 6 символов!"
-        elif len(phone) > 12:
-            error_message = "Номер слишком длинный!"
-
-        if customer.isExists():
-            error_message = "Данный email-адрес уже используется!"
+        error_message = validateCustomer(customer)
 
         # Сохранение
         if not error_message:
