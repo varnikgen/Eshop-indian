@@ -89,3 +89,16 @@ def signup(request):
 def login(request):
     if request.method == 'GET':
         return render(request, 'login.html')
+    elif request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        customer = Customer.get_customer_by_email(email)
+        error_message = None
+        if customer:
+            if check_password(password, customer.password):
+                return redirect('homepage')
+            else:
+                error_message = 'Email или пароль не верны!'
+        else:
+            error_message = 'Email или пароль не верны!'
+        return render(request, 'login.html', {'error': error_message})
