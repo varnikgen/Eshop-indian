@@ -2,6 +2,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.checks.messages import Error
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.views import View
 
 from .models.category import Category
 from .models.customer import Customer
@@ -42,8 +43,9 @@ def validateCustomer(customer):
 
     if customer.isExists():
         error_message = "Данный email-адрес уже используется!"
-    
+
     return error_message
+
 
 def registerUser(request):
     postData = request.POST
@@ -80,16 +82,19 @@ def registerUser(request):
         }
         return render(request, 'signup.html', data)
 
+
 def signup(request):
     if request.method == 'GET':
         return render(request, 'signup.html')
     else:
         return registerUser(request)
 
-def login(request):
-    if request.method == 'GET':
+
+class Login(View):
+    def get(self, request):
         return render(request, 'login.html')
-    elif request.method == 'POST':
+
+    def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         customer = Customer.get_customer_by_email(email)
