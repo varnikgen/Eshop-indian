@@ -19,4 +19,5 @@ def index(request):
         products = Product.get_all_products()
 
     data = {'categories': categories, 'products': products, }
+    print('you are: ', request.session.get('email'))
     return render(request, 'index.html', data)

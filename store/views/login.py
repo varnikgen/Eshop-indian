@@ -16,6 +16,10 @@ class Login(View):
         error_message = None
         if customer:
             if check_password(password, customer.password):
+
+                request.session['customer_id'] = customer.id
+                request.session['email'] = customer.email
+
                 return redirect('homepage')
             else:
                 error_message = 'Email или пароль не верны!'
