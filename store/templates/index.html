@@ -27,7 +27,13 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text"><b>{{ product.price }}</b></p>
-                        <a href="#" class="btn btn-light border btn-sm">Добавить в корзину</a>
+                        
+                        <form action="/" method="POST">
+                            {% csrf_token %}
+                            <input type="text" hidden name="product" value="{{ product.id }}">
+                            <input type="submit" class="btn btn-light border btn-sm" value="Добавить в корзину">
+                        </form>
+
                     </div>
                 </div>
                 {% endfor %}
