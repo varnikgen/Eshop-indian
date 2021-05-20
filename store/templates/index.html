@@ -29,12 +29,19 @@
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text"><b>{{ product.price }}</b></p>
                         {{ product|is_in_cart:request.session.cart }}
-                        <form action="/" method="POST">
+                        
+                    </div>
+                    <div class="card-footer m-0 p-0 row nu-gutters">
+                        <form action="/" method="POST" class="btn-block">
                             {% csrf_token %}
                             <input type="text" hidden name="product" value="{{ product.id }}">
-                            <input type="submit" class="btn btn-light border btn-sm" value="Добавить в корзину">
+                            <input type="submit" class="float-right btn btn-light border form-control" value="Добавить в корзину">
                         </form>
-
+                        <div class="row" hidden>
+                            <input type="submit" value=" - " class="col-2 btn btn-block btn-secondary">
+                            <div class="text-center col">2 в корз</div>
+                            <input type="submit" value=" + " class="col-2 btn btn-block btn-secondary">
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
