@@ -22,7 +22,7 @@ class Index(View):
             cart[product] = 1
         request.session['cart'] = cart
 
-        print(request.session.get('cart'))
+        print('Cart', request.session.get('cart'))
 
         return redirect('homepage')
 

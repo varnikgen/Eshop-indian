@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% load cart %}
+<!-- {% load cart %} -->
 <!-- body -->
 <div class="container-fluid mt-3">
     <div class="row">
@@ -13,7 +13,8 @@
             <div class="list-group">
                 <a href="/" class="list-group-item list-group-item-action">Все товары</a>
                 {% for category in categories %}
-                <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+                <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{ category.name
+                    }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -28,20 +29,24 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text"><b>{{ product.price }}</b></p>
-                        {{ product|is_in_cart:request.session.cart }}
                         
+
                     </div>
-                    <div class="card-footer m-0 p-0 row nu-gutters">
-                        <form action="/" method="POST" class="btn-block">
-                            {% csrf_token %}
-                            <input type="text" hidden name="product" value="{{ product.id }}">
-                            <input type="submit" class="float-right btn btn-light border form-control" value="Добавить в корзину">
-                        </form>
-                        <div class="row" hidden>
-                            <input type="submit" value=" - " class="col-2 btn btn-block btn-secondary">
-                            <div class="text-center col">2 в корз</div>
-                            <input type="submit" value=" + " class="col-2 btn btn-block btn-secondary">
-                        </div>
+                    <div class="card-footer p-0 no-gutters">
+                        {% if product|is_in_cart:request.session.cart %}
+                            <div class="row no-gutters">
+                                <input type="submit" value=" - " class="col-2 btn btn-block btn-secondary">
+                                <div class="text-center col">2 в корз</div>
+                                <input type="submit" value=" + " class="col-2 btn btn-block btn-secondary">
+                            </div>
+                        {% else %}
+                            <form action="/" method="POST" class="btn-block">
+                                {% csrf_token %}
+                                <input type="text" hidden name="product" value="{{ product.id }}">
+                                <input type="submit" class="float-right btn btn-light border form-control"
+                                    value="Добавить в корзину">
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
