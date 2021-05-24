@@ -13,8 +13,9 @@
             <div class="list-group">
                 <a href="/" class="list-group-item list-group-item-action">Все товары</a>
                 {% for category in categories %}
-                <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{ category.name
-                    }}</a>
+                    <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">
+                        {{ category.name }}
+                    </a>
                 {% endfor %}
             </div>
         </div>
@@ -36,7 +37,7 @@
                         {% if product|is_in_cart:request.session.cart %}
                             <div class="row no-gutters">
                                 <input type="submit" value=" - " class="col-2 btn btn-block btn-secondary">
-                                <div class="text-center col">2 в корз</div>
+                                <div class="text-center col">{{product|cart_quantity:request.session.cart}} в корз</div>
                                 <input type="submit" value=" + " class="col-2 btn btn-block btn-secondary">
                             </div>
                         {% else %}
