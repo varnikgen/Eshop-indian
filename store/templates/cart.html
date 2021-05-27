@@ -1,7 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load cart %}
 <div class="container">
-    <h1>Корзина</h1>
+    <div class='border rounded p-4 m-4'>
+        <p class="display-4 pl-4 ml-4 ">Ваша корзина</p><hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Изображение</th>
+                    <th>Наименование</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Стоимость</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for product in products %}                    
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img style="height: 80px;" class="rounded" src="{{ product.image.url }}" alt=""></td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }} руб.</td>
+                    <td>{{ product|cart_quantity:request.session.cart }}</td>
+                    <td>{{ product|price_total:request.session.cart }} руб.</td>
+                </tr>                    
+                {% endfor %}
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4"></th>
+                    <th>Итого:</th>
+                    <th>{{ products|total_cart_price:request.session.cart}} руб.</th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr>
+        <div class="m-3 p-3">
+            <a href="#" class="btn btn-outline-info border rounded col-lg-3 float-right">Заказать</a>
+        </div>
+
+    </div>
 </div>
 {% endblock content %}
