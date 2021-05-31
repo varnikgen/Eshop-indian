@@ -17,4 +17,6 @@ class Order(models.Model):
 
     def __str__(self) -> str:
         return self.customer.__str__() + " - " + str(self.id)
-    
+
+    def placeOrder(self):
+        self.save()
