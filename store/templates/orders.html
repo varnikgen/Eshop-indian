@@ -31,7 +31,13 @@
                         <td>{{ order.price|currency }}</td>
                         <td>{{ order.quantity }}</td>
                         <td>{{ order.quantity|multiplay:order.price|currency }}</td>
-                        <td>{{ order.status|default:'в ожидании' }}</td>
+                        
+                        {% if order.status %}
+                            <td> <small class="badge badge-success">Выполнен</small></td>
+                        {% else %}
+                            <td><small class="badge badge-warning">В работе</small></td>
+                        {% endif %}
+                            
                     </tr>
                     {% endfor %}
 
