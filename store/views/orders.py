@@ -11,7 +11,7 @@ from store.middlewares.auth import auth_middleware
 
 
 class OrderView(View):
-    @method_decorator(auth_middleware)
+    # @method_decorator(auth_middleware)
     def get(self, request):
         customer = request.session.get('customer')
         orders = Order.get_orders_by_customer(customer)

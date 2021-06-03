@@ -1,4 +1,5 @@
 from django.urls import path
+from .middlewares.auth import auth_middleware
 
 from .views.cart import Cart
 from .views.checkout import Checkout
@@ -15,5 +16,5 @@ urlpatterns = [
     path('cart', Cart.as_view(), name='cart'),
     path('logout', logout, name='logout'),
     path('checkout', Checkout.as_view(), name='checkout'),
-    path('orders', OrderView.as_view(), name='orders'),
+    path('orders', auth_middleware(OrderView.as_view()), name='orders'),
 ]
